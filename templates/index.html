@@ -1,0 +1,43 @@
+<!-- SJSU CS 218 Fall 2019 TEAM6 -->
+{% extends "layout.html" %}
+{% block title %}Speech Summarizer{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="col-12-xs">
+      <h3>Choose one of the following tasks:</h3>
+
+      <table class="table table-striped">
+        <tr>
+          <th>Tasks</th>
+          <th></th>
+        </tr>
+
+        {% for bucket in buckets %}
+          {% if bucket in ['cs218-speech-upload', 'cs218-speech-transcripts', 'cs218-speech-summaries'] %}
+          <tr>
+            {% if bucket == 'cs218-speech-upload' %}
+              <td>Upload Audio File</td>
+            {% endif %}
+            {% if bucket == 'cs218-speech-transcripts' %}
+              <td>View Text Transcripts</td>
+            {% endif %}
+            {% if bucket == 'cs218-speech-summaries' %}
+              <td>View Results</td>
+            {% endif %}
+            <td>
+              <form class="select-bucket" action="{{ url_for('loggedin') }}" method="post">
+                <input type="hidden" name="bucket" value="{{ bucket }}">
+                <button type="submit" class="btn btn-primary btn-sm">
+                  <i class="fa fa-archive"></i>
+                  Select
+                </button>
+              </form>
+            </td>
+          </tr>
+          {% endif %}
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+{% endblock %}
